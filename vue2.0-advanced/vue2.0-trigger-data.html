@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue2.0-trigger-data</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+  <div id="trigger">
+    {{ message }}
+    <br>
+    <br>
+    {{ data.a }}
+    <br>
+    {{ data.b }}
+    <br>
+    {{ data.c }}
+  </div>
+</body>
+<script type="text/javascript">
+   var vm = new Vue({
+    el: '#trigger',
+    data: {
+      message: '追踪数据变化',
+      data: {}
+    },
+    created () {
+      this.$data.mess = '1234'
+      Vue.set(this.data, 'b', 2)
+      this.$set(this.data,'a',2)
+      console.log(this)
+    }
+   })
+</script>
+</html>

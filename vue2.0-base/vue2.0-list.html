@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>列表渲染</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+  <!-- 列表循环渲染 -->
+  <div id="list">
+  	<ul>
+  		<li v-for="(item,index) in items">
+  			{{item.mess}} index {{ index }} 
+  		</li>
+  	</ul>
+  	<div v-for="(item, index) of items">
+  		{{item.mess}} index {{ index }} 
+  	</div >
+  	<template v-for="(item, index) of items">
+  		{{item.mess}} index {{ index }}
+  	</template >
+  </div>
+
+  <!-- 对象迭代循环渲染 -->
+   <div id="objFor">
+   	 <input v-for="item in obj"  :value="item">
+   	 <div v-for="(item, key) in obj">
+   	    {{key}} - key - {{item}}
+   	 </div >
+   	 <div v-for="(item, key, index) in obj">
+   	    key:  {{key}} -index : {{index}} - value: {{item}}
+   	 </div >
+   	 <button v-for="n in 50">{{ n }}</button>
+   </div>
+   <br>
+   <br>
+   <br>
+   <div id="listMethod">
+   	 <div v-for="item in items">
+   	 	<p>{{ item.name }}</p>
+   	 </div>
+   	 <button @click="push">尾部添加push</button>
+   	 <button @click="pop">尾部删除pop</button>
+   	 <button @click="shift">头部删除shift</button>
+   	 <button @click="unshift">头部添加unshift</button>
+   	 <button @click="splice">删除一个或一段splice</button>
+   	 <button @click="sort">按name值正序排序</button>
+   	 <button @click="unsort">按name值反排序</button>
+   	 <button @click="reverse">reverse反转</button>
+   	 <button @click="filter">filter</button>
+   </div>
+   <br>
+   <br>
+   <div id="listFilter">
+   	  <div v-for="item in items">
+   	  	<p>{{ item }}</p>
+   	  </div>
+   	  <button @click="filter">filter数组</button>
+   	  <br>
+   	  <br>
+   	  <br>
+   	  <!-- 计算属性 -->
+   	  <div v-for="item in evenItems">
+   	  	<p>{{ item }}</p>
+   	  </div>
+   	  <br>
+   	  <div v-for="item in even(items)">
+   	  	<p>{{ item }}</p>
+   	  </div>
+   </div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#list',
+		data: {
+			items: [
+				{
+					mess: 'FOO'
+				},
+				{
+					mess: 'TAR'
+				}
+			]
+		}
+	})
+	var obj = new Vue({
+		el: '#objFor',
+		data: {
+			obj: {
+				name: 'zhangsan',
+				sex: 'nan'
+			},
+			els: '',
+		}
+	})
+	var listMethod = new Vue({
+		el: '#listMethod',
+		data: {
+			items: [
+			  {name: 'zhangsansan'},
+			  {name: 'lisisi'},
+			  {name: 'wangermazi'},
+			]
+		},
+		methods: {
+			push() {
+				this.items.push({name:'郑龙'})
+			},
+			pop() {
+				this.items.pop()
+			},
+			shift() {
+				this.items.shift()
+			},
+			unshift() {
+				this.items.unshift({name:"node.js"})
+			},
+			splice() {
+				this.items.splice(0, 2)
+			},
+			sort() {
+				this.items.sort((a,b) => {
+					return a.name > b.name
+				})
+			},
+			unsort() {
+				this.items.sort(function(a,b){
+					return a.name < b.name
+				})
+			},
+			reverse() {
+				this.items.reverse()
+			},
+			filter() {
+				/*filter 不会改变旧数组，只能重新赋值*/
+				this.items = this.items.filter((item) => {
+					return item.name.match('lisisi')
+				})
+			}
+		}
+	})
+	var listFilter = new Vue({
+		el: '#listFilter',
+		data: {
+			items: [12, 34, 45, 56, 78, 99]
+		},
+		methods: {
+			filter() {
+				/*filter 不会改变旧数组，只能重新赋值*/
+				this.items = this.items.filter((item) => {
+					return item % 2 === 0
+				})
+			},
+			even(items) {
+				return items.filter(item => {
+					return item % 3 === 0
+				})
+			}
+		},
+		computed: {
+			evenItems() {
+				return this.items.filter((item) => {
+					return item % 2 !== 0
+				})
+			}
+		}
+	})
+</script>
+</html>

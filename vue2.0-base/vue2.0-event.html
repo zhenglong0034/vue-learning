@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+<div id="event">
+	<button @click="count ++ ">{{count}}</button>
+	<br>
+	<button @click="greet">点击</button>
+	<br>
+	<button @click="say('hi')">点击</button>
+	<br>
+	<!-- 原来的原生事件都传 e 或者 event 原来是传 $event -->
+	<button @click="comm('hello', $event)">原生事件</button>
+	<br>
+	<!-- 阻止a标签的默认跳转事件 -->
+	<a href="/" @click.prevent="doSome">跳转</a>
+</div>
+<div id="key">
+	<input @keyup.13="doSome($event.target.value)">
+	<input @keyup.enter="doUp($event.target.value)">
+</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#event',
+		data: {
+			count: 0
+		},
+		methods: {
+			greet() {
+				alert(this.count)
+				console.log(event)
+				alert(event.target.textContent)
+			},
+			say(mess) {
+				alert(mess)
+			},
+			comm(mess, e) {
+				if (e) e.preventDefault()
+				alert(mess)
+				alert(e)
+			},
+			doSome() {
+				alert(event)
+			}
+		}
+	})
+	var vm = new Vue({
+		el: '#key',
+		data: {
+
+		},
+		methods: {
+			doSome(val) {
+				alert(val)
+			},
+			doUp(val) {
+				console.log(val)
+			}
+		}
+	})
+</script>
+</html>

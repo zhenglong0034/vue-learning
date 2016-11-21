@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>绑定Class 与 Style</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+<div id="classDemo">
+    <!-- 绑定Class -->
+	<div :class="{ active: isActive }"></div>
+	<div :class="classObject"></div> <!-- 可以在data中定义或者使用计算属性 计算 -->
+	<div :class="[activeClass, errorClass]"></div>
+	<div v-bind:class="[isActive ? activeClass : '', errorClass]">
+	<!-- 绑定 Style -->
+	<div :style="{color: activeColor, fontSize: fontSize + 'px' }"></div>
+	<div :style="style"></div> <!-- 可以在data中定义或者使用计算属性 计算 -->
+</div>
+</body>
+ <script type="text/javascript">
+
+ </script>
+</html>

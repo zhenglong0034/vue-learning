@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue2.0指令</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+  <div id="app">
+  	<p v-show="true">12e</p>
+  	<p v-if="true">12e</p>
+  	<p v-if="true">12e</p>
+  	<a v-bind:href="hre">12</a><!-- DOM属性 缩写 :href -->
+  	<a :href="hre">12e</a>
+  	<a v-on:click="">12e</a> <!-- v-on事件 缩写 @click -->
+  	<a @click="">12e</a>
+  </div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			hre: 'www.baidu.com'
+		}
+	})
+</script>
+</html>

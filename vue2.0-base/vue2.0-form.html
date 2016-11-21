@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue-form</title>
+	<meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="formDemo">
+	<input v-model="message" >
+	<p>{{ message }}</p>
+  <br>
+  <input v-model.lazy="message" >
+  <p>{{ message }}</p>
+  <br>
+  <input v-model.number="message" type="number">
+  <p>{{ message }}</p>
+  <br>
+  <input v-model.trim="message">
+  <p>{{ message }}</p>
+	<br>
+	<p>multil message: {{mess}}</p>
+	<!-- value="ahhahaah"  不会生效-->
+	<textarea v-model="mess" value="ahhahaah"></textarea>
+
+	<br>
+    <!-- 多选复选框使用 一个数组存储value 值 来判断哪个选中 -->
+  <input v-model="checkList" type="checkbox" value="jack" id="jack">
+  <label for="jack"></label>
+  <input v-model="checkList" type="checkbox" value="rose" id="rose">
+  <label for="rose"></label>
+  <input v-model="checkList" type="checkbox" value="jr" id="jr">
+  <label for="jr"></label>
+  <p>{{checkList}}</p>
+  <br>
+  <input v-model="radioList" type="radio" id="one" value="one">
+  <label for="one">one</label>
+  <input v-model="radioList" type="radio" id="two" value="two">
+  <label for="two">two</label>
+  <p>{{ radioList }}</p>
+  <br>
+  <!-- 当不为option 指定value 值时，选中的按钮的名称 如 1，2，3 加入到selected -->
+  <select v-model="selected">
+    <option value="123">0</option>
+    <option value="456">1</option>
+    <option value="789">2</option>
+  </select>
+  <p>{{selected}}</p>
+  <br>
+  <select v-model="selectArray" multiple>
+    <option value="123">0</option>
+    <option value="456">1</option>
+    <option value="789">2</option>
+  </select>
+  <p>{{selectArray}}</p>
+  <br>
+  <br>
+	<!-- value="2" 对于单个的复选框，并没什么卵用，v-model 在true 和false 之间切换,对比下面的 带有true-value 以及 false-value比较 -->
+  <input v-model="checked" value="2" type="checkbox" id="checkbox">
+  <label for="checkbox">{{checked}}</label>
+  <br>
+	<input v-model="checked" value="1" type="checkbox" id="checkboxone">
+	<label for="checkboxone">{{checked}}</label>
+	<br>
+  <br>
+  <input
+  type="checkbox"
+  v-model="toggle"
+  v-bind:true-value="ab"
+  v-bind:false-value="ba">
+  <p>{{toggle}}</p>
+  <br>
+  <input
+  type="checkbox"
+  v-model="toggleof"
+  v-bind:value="ccc">
+  <p>{{toggleof}}</p>
+</div>
+</body>
+<script type="text/javascript">
+	var vue = new Vue({
+		el: '#formDemo',
+		data: {
+      toggleof: '111',
+      ccc: '111',
+      toggle: '',
+      ab: '111',
+      ba: '222',
+			message: '初始值',
+			mess: '',
+			checked: '2',
+      checkeda: 0,
+      a: 2,
+			checkList: [],
+			radioList: '',
+      selected: '123',
+      selectArray: ['123', '456']
+		}
+	})
+</script>
+</html>

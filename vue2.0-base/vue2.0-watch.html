@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Watch</title>
+	<meta charset="utf-8">
+</head>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+<script src="vue.js"></script>
+<body>
+<div id="watch">
+	<p>
+		Ask a question:
+		<input v-model="question">
+	</p>
+	<p> {{ answer }}</p>
+</div>
+
+</body>
+<script type="text/javascript">
+	var watchVM = new Vue({
+		el: '#watch',
+		data: {
+			question: '',
+			answer: 'Pelase ask a question!'
+		},
+		watch: {
+			question (nw) {
+			  this.answer = 'waiting for ' + nw
+			  this.getAnswer()
+			}
+		},
+		methods: {
+			getAnswer: _.debounce(function () {
+				var vm = this
+				if (this.question.indexOf('?') === -1) {
+					vm.answer = '问题以❓结束'
+					return
+				}
+				vm.answer = '想想···',
+				axios.get('https://yesno.wtf/api').then(function(response) {
+					vm.answer = _.capitalize(response.data.answer)
+				}).catch(function(error) {
+					vm.answer = 'Error! Could not fetch thi API'
+				})
+			}, 500)
+		}
+	})
+</script>
+</html>

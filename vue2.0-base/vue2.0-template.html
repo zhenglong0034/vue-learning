@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue2.0模版语法</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+<div id="app">
+	{{ number + 1 }}
+	<br>
+	{{ number < 3 ? 'yuan' : 'jiao'}}
+	<br>
+	{{ nubmer ? n : u }}
+	<br>
+	{{ n ? n : u }}
+</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			number: 3.545,
+			n: '1',
+			u: 'str'
+		}
+	})
+</script>
+</html>

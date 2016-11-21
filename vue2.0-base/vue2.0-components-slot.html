@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>components-slot</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="slot">
+<!-- 并没有效果 -->
+  <button-event>121331???</button-event>
+  <button-child-slot></button-child-slot>
+  <button-child-slot>  现在是有内容</button-child-slot>
+  <!-- 具名slot 与无名的slot 联合使用时，其在父组件的顺序并不改变其在子组件的结构 -->
+  <button-two-slot><span slot="header">这是头部的哦 </span><span slot="footer">  这是尾部的哦</span>1213331</button-two-slot>
+</div>
+
+</body>
+<script type="text/javascript">
+  Vue.component('button-event', {
+    template: '<p>传的是</p>'
+  })
+  Vue.component('button-child-slot', {
+    template: '<p>传的是<slot>  无内容显示</slot></p>'
+  })
+  Vue.component('button-two-slot', {
+    template: '<p><slot name="header"></slot>传的是<slot>  无内容显示  </slot><slot name="footer"></slot></p>'
+  })
+  var vm = new Vue({
+    el: '#slot',
+    data: {}
+  })
+</script>

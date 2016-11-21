@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vue2.0练习</title>
+</head>
+<script src="vue.js"></script>
+<body>
+<!-- <div id="app">
+	{{ message }}
+</div>
+
+<div id="app-1">
+	<span v-bind:title="message">
+		how are you!
+	</span>
+</div>
+<div id="app-2">
+	<div v-if="show">123</div>
+</div>
+<div id="app-3">
+	<div v-for="item in list">
+		{{ item.name }}
+	</div>
+	<div></div>
+	<input type="text" v-model="message" :value="message">
+	<button v-on:click="changeMessage">改变</button>
+	<todos :todo="item.name" v-for="item in list" ></todos>
+</div>
+
+ -->
+   <div id="app">
+    <div v-for="item in list">
+ 	  <input type="text" v-model="item.value" @input="setValueId(item.id, $event.target.value)">
+    </div>
+    <button v-on:click="submit">提交</button>
+<!--  	<input type="radio" value="sty" v-model="mess">
+ -->  
+ 	<input :value="namee" v-model="nameDe">
+  </div>
+ </body>
+<script type="text/javascript">
+	/*Vue.component('todos', {
+		props: ['todo'],
+		template: '<li>{{todo}}</li>',
+	})
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: 'Hello Vue.js!'
+	  }
+	})
+	var app1 = new Vue({
+	  el: '#app-1',
+	  data: {
+	    message: 'Hello  啊！' + new Date()
+	  }
+	})
+	var app2 = new Vue({
+		el: '#app-2',
+		data: {
+		  show: true
+		}
+	})
+	var app3 = new Vue({
+		el: '#app-3',
+		data: {
+		  list: [
+			{name: '000'},
+			{name: 456},
+			{name: 789}
+			],
+		  sty: '123',
+		},
+		methods: {
+			changeMessage () {
+				console.log(this)
+				this.message = 'ppp'
+			}
+		}
+	})*/
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: '',
+	    mess: '',
+	    nameDe: '12677667',
+	    namee: '1qw3',
+	    list: [
+	    	{
+	    	  id: 1,
+	    	  value: 1234
+	    	},
+	    	{
+	    	  id: 2,
+	    	  value: 'aaaa'
+	    	},
+	    	{
+	    	  id: 3,
+	    	  value: '++++'
+	    	},
+	    	{
+	    	  id: 4,
+	    	  value: '----'
+	    	},
+	    	{
+	    	  id: 5,
+	    	  value: '????'
+	    	},
+	    ],
+	    sty: {
+	    	name: '12377',
+	    },
+	    newObj: [],
+	    conobj: [],
+	  },
+	  methods: {
+	  	submit() {
+	  		console.log(this.list)
+	  		console.log(this.newObj)
+	  		console.log(this.conobj)
+	  		this.list[0].value = '1244'
+	  	},
+	  	setValueId(id, value) {
+	  		let obj = {
+	  			'id': id,
+	  			'value': value,
+	  		}
+	  		if (this.newObj.length !==0) {
+	  			let len = this.newObj.length
+	  			let is = false
+	  			for (var i =0; i<len; i++) {
+	  				if(this.newObj[i].id === id) {
+	  					is = true
+	  					this.newObj[i].value = value
+	  				}
+	  			}
+	  			if (!is) {
+	  				this.newObj.push(obj)
+	  			}
+	  		} else {
+	  			this.newObj.push(obj)
+	  		}
+	  		this.conobj = this.newObj.filter(o => {
+	  			let ooo = this.list.find(res => {
+	  				return res.id === o.id
+	  			})
+	  			return ooo.id === o.id && o.value !== ooo.value
+	  		})
+	  	},
+	  }
+	})
+</script>
+</html>

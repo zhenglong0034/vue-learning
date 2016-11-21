@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>components-is</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="event">
+  <component v-bind:is="meth"></component>
+  <button @click="mmm"></button>
+</div>
+
+</body>
+<script type="text/javascript">
+  Vue.component('button-event', {
+    template: '<p>adafcddff</p>'
+  })
+  Vue.component('button-child', {
+    template: '<p>121331</p>'
+  })
+  var vm = new Vue({
+    el: '#event',
+    data: {
+      meth: 'button-event'
+    },
+    methods: {
+      mmm() {
+        this.meth = 'button-child'
+      }
+    }
+  })
+</script>
+</html>

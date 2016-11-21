@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>components-event</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="event">
+  <button-event v-on:incre="meth"></button-event>
+  <p>{{number}}</p>
+</div>
+
+</body>
+<script type="text/javascript">
+  Vue.component('button-event', {
+    data() {
+      return {
+        number: 123
+      }
+    },
+    methods: {
+      incre() {
+        this.number ++
+        this.$emit('incre')
+      }
+    },
+    template: '<p>传的是<button v-on:click="incre">按钮{{number}}</button</p>'
+  })
+  var vm = new Vue({
+    el: '#event',
+    data: {
+      number: 11
+    },
+    methods: {
+      meth() {
+        this.number ++
+      }
+    }
+  })
+</script>
+</html>

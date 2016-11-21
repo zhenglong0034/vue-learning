@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vue2.0过滤器</title>
+</head>
+<script src="vue.js"></script>
+<body>
+<div id="app">
+	{{ message | filte }}
+	<br>
+	{{ message | filte | filtes}}
+	<br>
+	{{ message | filter(u)}}
+</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			message: 123,
+			u: 34,
+		},
+		filters: {
+			filte(value) {
+				return value + 1
+			},
+			filtes(value) {
+				return value - 1
+			},
+			filter(value, u) {
+				console.log(u)
+				return u + value
+			}
+		}
+	})
+</script>
+</html>

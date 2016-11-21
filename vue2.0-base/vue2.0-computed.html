@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>计算属性</title>
+	<meta charset="utf-8">
+</head>
+<script src="vue.js"></script>
+<body>
+  <div id="app">
+  	<p> {{ message }}</p>
+  	<p> {{ mes }}</p>
+  	<p> {{ mess() }}</p>
+  	<p> {{ now }}</p> <!-- 与 methods 做比较，计算属性是读 计算缓存，如果是多列表读取一个计算出来的属性，方法会多次条用，而计算属性只计算一次，其余的读换缓存。 -->
+  	<p> {{ nowtime() }}</p>
+  	<p> {{ nowtim }}</p>
+  </div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			message: 123,
+		},
+		computed: {
+			mes() {
+				return this.message > 90
+			},
+			now() {
+				return Date.now()
+			},
+			nowtim: {
+				get() {
+					return '123z'
+				},
+				set(newValue) {
+					this.message = newValue
+				}
+			}
+		},
+		methods: {
+			mess() {
+				return this.mes
+			},
+			nowtime() {
+				return Date.now()
+			}
+		}
+	})
+</script>
+</html>

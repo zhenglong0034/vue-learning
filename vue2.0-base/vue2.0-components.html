@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue2.0 组件</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="component">
+  <child-com></child-com>
+  <child-two></child-two>
+  <br>
+  <!-- 下面这样是欠妥的，因为本身table 不包含有 child-two 组件，看网页代码可以看到child-two的内容并不在table里面
+  ，为了妥协，选择is -->
+  <table>
+   <child-two></child-two>
+  </table>
+  <br>
+  <table>
+    <tbody>
+      <tr is="child-two"></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+<script type="text/javascript">
+ // 全局注册组件
+  Vue.component('child-com', {
+    template: '<p>{{mess}}</p>',
+    data() {
+      return {
+        mess: 'data必须是函数'
+      }
+    }
+  })
+  /*不许使用child-two 作为子组件字符串，但可在引入的时候重新命名*/
+  var childTwo = {
+    template: '<p>ewewewewew</p>'
+  }
+  var vm = new Vue({
+    el: '#component',
+    // 这是局部注册
+    components: {
+      'child-two': childTwo
+    },
+    data: {
+    }
+  })
+</script>
+</html>

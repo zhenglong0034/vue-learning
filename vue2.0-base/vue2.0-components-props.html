@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue2.0components-props</title>
+  <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="vue.js"></script>
+<body>
+<div id="prop">
+  <child-first message="hello a"></child-first>
+  <child-first :message="mess"></child-first>
+  <input v-model="mess">
+  <br>
+  <p>父组件数据: <input v-model="list.name"></p>
+  <br>
+  子组件数据: <child-single :list="list"></child-single>
+</div>
+</body>
+<script type="text/javascript">
+  Vue.component('child-first', {
+    props: ['message'],
+    computed: {
+      mes() {
+        return this.message
+      }
+    },
+    // 直接绑定 v-model="message" 时 会导致父组件 原值变化
+    template: '<p>传的是{{mes}}<input v-model="mes"></p>'
+  }),
+  Vue.component('child-single', {
+    props: ['list'],
+    template: '<span><input v-model="list.name"></span>'
+  })
+  var vm = new Vue({
+    el: '#prop',
+    data: {
+      mess: 'head',
+      list: { 'name': '123'}
+    }
+  })
+</script>
+</html>
