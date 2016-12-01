@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<span style="white-space:pre">	</span><script type="text/javascript" src="http://cdn.bootcss.com/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+	<title>文件下载等待</title>
+</head>
+
+<body>
+	<button id="btnDownload">文件下载</button>	
+	<!--
+		下载的iframe
+		通过iframe的onload事件判断后台是否已经导出完成，浏览器是否开始下载
+	-->
+	<iframe id="iframeDownload" style="display:none;"></iframe>
+	
+	<script type="text/javascript">		
+		$(function(){
+			$('#iframeDownload').on('load', function(){
+				//当后台返回文件时，取消Loading。
+				// $.unblockUI();
+				console.log('生成文件完成！！！')
+				return false;
+			});
+			
+			$('#btnDownload').click(function(){
+				var url = 'https://codeload.github.com/mugifly/jquery-simple-datetimepicker/legacy.zip/1.12.0';
+				download(url, '下载中，请稍候。。。');
+				return false;
+			});
+		});
+		
+		/**
+		 * 下载
+		 * @param  url      {String}  [必填]下载文件的路径，如果有参数，请通过url传值，如download.jsp?year=2015&month=7
+		 * @param  message  {String}  [可选]等待文字，默认是请稍候
+		 */
+		function download(url, message){			
+			//如果message没有值或者不是字符串，使用默认等待文字。
+			if(!message || Object.prototype.toString.call(message) !== '[object String]'){
+				message = '请稍候。。。';
+			}
+			console.log('开始生成文件。。')
+			//显示等待效果
+			// $.blockUI({
+			// 	message: message
+			// });
+			
+			//让iframe的src调用url
+			$('#iframeDownload').attr('src', url);
+		}
+	</script>
+</body>
+
+</html>

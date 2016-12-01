@@ -7,14 +7,122 @@
 <script type="text/javascript" src="vue.js"></script>
 <body>
   <div id="render">
-
+    <h4>
+      <a href="#hello_render" name="hello_render">
+        hello_render
+      </a>
+      <anchored-heading :level="1">aaa</anchored-heading>
+      <render-test :level="6">人事总监</render-test>
+      <render-most :level="4">343<a>45</a></render-most>
+      <render-list>23</render-list>
+      <render-js></render-js>
+    </h4>
   </div>
 </body>
+<script type="text/x-template" id="anchored-heading-template">
+  <div>
+    <h1 v-if="level === 1">
+      <slot></slot>
+    </h1>
+    <h2 v-if="level === 2">
+      <slot></slot>
+    </h2>
+    <h3 v-if="level === 3">
+      <slot></slot>
+    </h3>
+    <h4 v-if="level === 4">
+      <slot></slot>
+    </h4>
+    <h5 v-if="level === 5">
+      <slot></slot>
+    </h5>
+    <h6 v-if="level === 6">
+      <slot></slot>
+    </h6>
+  </div>
+</script>
 <script type="text/javascript">
+   var getChildContent = function (children) {
+      return children.map(function (node) {
+        return node.children ? getChildContent(node.children) : node.text
+      }).join('')
+   }
+   Vue.component('render-most', {
+    render: function(createElement) {
+      var headingId = getChildContent(this.$slots.default).toLowerCase().replace(/\W+/, '-').replace(/(^\-|\-$)/g, '')
+      return createElement(
+        'h' + this.level,
+        [
+          createElement(
+            'a', {
+              attrs: {
+                name: headingId,
+                href: '#' + headingId
+              }
+            }, this.$slots.default)
+        ]
+      )
+    },
+    props: {
+      level: {
+        type: Number,
+        required: true
+      }
+    }
+   })
+   Vue.component('anchored-heading', {
+    template: '#anchored-heading-template',
+    props: {
+      level: {
+        type: Number,
+        default: 4,
+        required: true,
+      }
+    }
+   })
+   Vue.component('render-test', {
+    render: function(createElement) {
+      return createElement(
+        'h' + this.level,
+        this.$slots.default
+        )
+    },
+    props: {
+      level: {
+        type: Number,
+        required: true,
+      }
+    }
+   })
+   Vue.component('render-list', {
+    render: function (createElement) {
+      return createElement('div',
+        Array.apply(null, { length: 20 }).map(function () {
+          return createElement('p', 'hi')
+        })
+      )
+    },
+   })
+   Vue.component('render-js', {
+    data() {
+      return {
+        items: [1,2,3]
+      }
+    },
+    render: function(createElement) {
+      if(this.items.length) {
+        return createElement('ul', this.items.map(function(item) {
+          return createElement('li', item)
+        }))
+      } else {
+        return createElement('p', 'No items')
+      }
+    }
+   })
    var vm = new Vue({
     el: '#render',
     data: {
-
+      items: [1, 2]
     },
     created () {
     }
